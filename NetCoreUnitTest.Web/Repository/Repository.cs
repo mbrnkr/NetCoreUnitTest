@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NetCoreUnitTest.Web.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace NetCoreUnitTest.Web.Repository
@@ -44,9 +42,7 @@ namespace NetCoreUnitTest.Web.Repository
         public void Update(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            //_dbSet.Update(entity);
             _context.SaveChanges();
-
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetCoreUnitTest.Web.Models;
+using NetCoreUnitTest.Web.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,9 @@ namespace NetCoreUnitTest.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+
             services.AddDbContext<NetCoreXunitTestContext>(options =>
             {
                 options.UseSqlServer(Configuration["SqlConnStr"]);
@@ -54,7 +58,7 @@ namespace NetCoreUnitTest.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Products}/{action=Index}/{id?}");
             });
         }
     }
