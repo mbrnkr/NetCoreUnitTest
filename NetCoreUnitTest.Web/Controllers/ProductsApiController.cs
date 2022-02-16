@@ -20,12 +20,19 @@ namespace NetCoreUnitTest.Web.Controllers
         {
             _repository = repository;
         }
-    
+
+
+        [HttpGet("{a}/{b}")]
+        public IActionResult Add(int a, int b)
+        {
+            return Ok(new Helper.Helper().add(a, b));
+        }
+
 
         // GET: api/ProductsApi
         [HttpGet]
         public async Task<IActionResult> GetProducts()
-        {
+        {            
             var products = await _repository.GetAll();
 
             return Ok(products);

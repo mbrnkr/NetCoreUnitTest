@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NetCoreUnitTest.Web.Controllers;
+using NetCoreUnitTest.Web.Helper;
 using NetCoreUnitTest.Web.Models;
 using NetCoreUnitTest.Web.Repository;
 using System;
@@ -16,6 +17,7 @@ namespace NetCoreUnitTest.Test
     {
         private readonly Mock<IRepository<Product>> _mockRepo;
         private readonly ProductsApiController _controller;
+        private readonly Helper _helper;
 
         private List<Product> products;
 
@@ -23,6 +25,7 @@ namespace NetCoreUnitTest.Test
         {
             _mockRepo = new Mock<IRepository<Product>>();
             _controller = new ProductsApiController(_mockRepo.Object);
+            _helper = new Helper();
 
             products = new List<Product>() {
                 new Product { Id = 1, Name="Pencil", Price=100, Stock=50, Color="Red" },
@@ -151,6 +154,21 @@ namespace NetCoreUnitTest.Test
 
             Assert.IsType<NoContentResult>(noContentResult.Result);
         }
+
+
+        [Theory]
+        [InlineData(4,5,9)]
+        public void Add_SampleValues_ReturnTotal(int a, int b, int total)
+        {
+            var result = _helper.add(a, b);
+
+            Assert.Equal(total, result);        
+        }
+
+
+        //ToDo :  dotnet test
+
+
 
     }
 }
